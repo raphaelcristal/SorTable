@@ -5,12 +5,12 @@
 
         var aAsNumber = parseFloat(a);
         var bAsNumber = parseFloat(b);
-        if(a === b) return 0;
-        return a > b ? 1 : -1;
+        return a - b;
 
     };
 
     var sort = function(column, type, direction) {
+
         var $column = $(column);
         var tBody = $column.closest('table').find('tbody');
         var tableRows = tBody.children();
@@ -32,10 +32,23 @@
         });
 
         tableRows.remove();
+        if(direction === 'descending') {
+            tableRows = tableRows.toArray().reverse();
+        }
         tBody.append(tableRows);
+
     };
 
     var init = function(opts) {
+
+        var column;
+        var currentDirections = {};
+
+        for(column in opts.columns) {
+            if(opts.columns.hasOwnProperty(column)) {
+                currentDirections[column] = undefined;
+            }
+        }
 
         this.find('thead>tr>th')
             .filter(function() {
@@ -44,8 +57,12 @@
             .css(opts.css)
             .click(function(e) {
                 var columnHeader = $(this).text();
-                sort(this, opts.columns[columnHeader], 'ascending');
-                });
+                if(currentDirections[columnHeader] === undefined) {
+                    sort(this, opts.columns[columnHeader], 'ascending');
+                    currentDirections[columnHeader] = 'ascending';
+                }
+                console.log(currentDirections);
+            });
 
     };
 

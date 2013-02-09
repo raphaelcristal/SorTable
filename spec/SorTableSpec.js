@@ -94,8 +94,8 @@ describe('SorTable', function() {
             $table.find('thead>tr>th:contains("ColumnNumber")').trigger('click');
             var bodyCells = $table.find('tbody>tr>td');
             expect($(bodyCells[0]).text()).toEqual("-123123");
-            // expect($(bodyCells[3]).text()).toEqual("5.3434");
-            // expect($(bodyCells[6]).text()).toEqual("12");
+            expect($(bodyCells[3]).text()).toEqual("5.3434");
+            expect($(bodyCells[6]).text()).toEqual("12");
 
         });
 
