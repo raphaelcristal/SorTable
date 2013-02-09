@@ -152,9 +152,9 @@ describe('SorTable', function() {
 
                 $table.find('thead>tr>th:contains("ColumnString")').trigger('click');
                 var bodyCells = $table.find('tbody>tr>td');
-                expect($(bodyCells[1]).text()).toEqual("OIU");
-                expect($(bodyCells[5]).text()).toEqual("abc");
-                expect($(bodyCells[9]).text()).toEqual("qq");
+                expect($(bodyCells[1]).text()).toEqual("-123123");
+                expect($(bodyCells[5]).text()).toEqual("5.3434");
+                expect($(bodyCells[9]).text()).toEqual("12");
 
             });
 
@@ -163,9 +163,9 @@ describe('SorTable', function() {
                 $table.find('thead>tr>th:contains("ColumnString")').trigger('click');
                 $table.find('thead>tr>th:contains("ColumnString")').trigger('click');
                 var bodyCells = $table.find('tbody>tr>td');
-                expect($(bodyCells[9]).text()).toEqual("OIU");
-                expect($(bodyCells[5]).text()).toEqual("abc");
-                expect($(bodyCells[1]).text()).toEqual("qq");
+                expect($(bodyCells[9]).text()).toEqual("-123123");
+                expect($(bodyCells[5]).text()).toEqual("5.3434");
+                expect($(bodyCells[1]).text()).toEqual("12");
 
             });
 
