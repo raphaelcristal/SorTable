@@ -148,7 +148,7 @@ describe('SorTable', function() {
 
             });
 
-            it('should sort a number column ascending on first click', function() {
+            it('should sort a string column ascending on first click', function() {
 
                 $table.find('thead>tr>th:contains("ColumnString")').trigger('click');
                 var bodyCells = $table.find('tbody>tr>td');
@@ -158,7 +158,7 @@ describe('SorTable', function() {
 
             });
 
-            it('should sort a number column descending on second click',function() {
+            it('should sort a string column descending on second click',function() {
 
                 $table.find('thead>tr>th:contains("ColumnString")').trigger('click');
                 $table.find('thead>tr>th:contains("ColumnString")').trigger('click');
@@ -184,6 +184,28 @@ describe('SorTable', function() {
 
             });
 
+            it('should sort a date column ascending on first click', function() {
+
+                $table.find('thead>tr>th:contains("ColumnDate")').trigger('click');
+                var bodyCells = $table.find('tbody>tr>td');
+                expect($(bodyCells[2]).text()).toEqual("05 10 2010");
+                expect($(bodyCells[6]).text()).toEqual("2 Jan 2013");
+                expect($(bodyCells[10]).text()).toEqual("05-12-2013");
+
+            });
+
+            it('should sort a date column descending on second click',function() {
+
+                $table.find('thead>tr>th:contains("ColumnDate")').trigger('click');
+                $table.find('thead>tr>th:contains("ColumnDate")').trigger('click');
+                var bodyCells = $table.find('tbody>tr>td');
+                expect($(bodyCells[10]).text()).toEqual("05 10 2010");
+                expect($(bodyCells[6]).text()).toEqual("2 Jan 2013");
+                expect($(bodyCells[2]).text()).toEqual("05-12-2013");
+
+            });
+
+
         });
 
         describe('custom column', function() {
@@ -194,13 +216,33 @@ describe('SorTable', function() {
                 $table.sorTable({
                     columns: {
                         ColumnCustom: function() {
-                            //TODO IMPLEMENT
+                            console.log("CUSTOM");
                         }
                     }
                 });
 
             });
 
+            it('should sort a custom column ascending on first click', function() {
+
+                $table.find('thead>tr>th:contains("ColumnCustom")').trigger('click');
+                var bodyCells = $table.find('tbody>tr>td');
+                expect($(bodyCells[3]).text()).toEqual("5 %");
+                expect($(bodyCells[7]).text()).toEqual("50 %");
+                expect($(bodyCells[11]).text()).toEqual("75 %");
+
+            });
+
+            it('should sort a custom column descending on second click',function() {
+
+                $table.find('thead>tr>th:contains("ColumnCuston")').trigger('click');
+                $table.find('thead>tr>th:contains("ColumnCustom")').trigger('click');
+                var bodyCells = $table.find('tbody>tr>td');
+                expect($(bodyCells[11]).text()).toEqual("5 %");
+                expect($(bodyCells[7]).text()).toEqual("50 %");
+                expect($(bodyCells[3]).text()).toEqual("75 %");
+
+            });
 
         });
 

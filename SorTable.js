@@ -5,14 +5,26 @@
 
         var aAsNumber = parseFloat(a);
         var bAsNumber = parseFloat(b);
-        return a - b;
+        return aAsNumber - bAsNumber;
 
     };
 
     var sortAsString = function(a, b) {
+
         if(a === b) return 0;
         return a > b ? 1 : -1;
+
     };
+
+    var sortAsDate = function(a, b) {
+
+        var aAsDate = new Date(a);
+        var bAsDate = new Date(b);
+        if(aAsDate === bAsDate) return 0;
+        return aAsDate > bAsDate ? 1 : -1;
+
+    };
+
 
     var sort = function(column, type, direction) {
 
@@ -21,20 +33,28 @@
         var tableRows = tBody.children();
         var columnIndex = $column.parent().children().index($column);
 
-        tableRows.sort(function(a, b) {
-            var valA = $($(a).children().get(columnIndex)).text();
-            var valB = $($(b).children().get(columnIndex)).text();
-            switch(type) {
-                case 'Number':
-                    return sortAsNumber(valA, valB);
-                case 'String':
-                    return sortAsString(valA, valB);
-                case 'Date':
-                    return sortAsDate(valA, valB);
-                default:
-                    throw new Error('Unsupported type ' + type);
-            }
-        });
+        if(typeof type === 'function') {
+            tableRows.sort(function(a, b) {
+                var valA = $($(a).children().get(columnIndex)).text();
+                var valB = $($(b).children().get(columnIndex)).text();
+                return type(valA, valB);
+            });
+        } else {
+            tableRows.sort(function(a, b) {
+                var valA = $($(a).children().get(columnIndex)).text();
+                var valB = $($(b).children().get(columnIndex)).text();
+                switch(type) {
+                    case 'Number':
+                        return sortAsNumber(valA, valB);
+                    case 'String':
+                        return sortAsString(valA, valB);
+                    case 'Date':
+                        return sortAsDate(valA, valB);
+                    default:
+                        throw new Error('Unsupported type ' + type);
+                }
+            });
+        }
 
         tableRows.remove();
         if(direction === 'descending') {
