@@ -57,11 +57,13 @@
             .css(opts.css)
             .click(function(e) {
                 var columnHeader = $(this).text();
-                if(currentDirections[columnHeader] === undefined) {
-                    sort(this, opts.columns[columnHeader], 'ascending');
+                if(currentDirections[columnHeader] === undefined ||
+                        currentDirections[columnHeader] === 'descending') {
                     currentDirections[columnHeader] = 'ascending';
+                } else if(currentDirections[columnHeader] === 'ascending') {
+                    currentDirections[columnHeader] = 'descending';
                 }
-                console.log(currentDirections);
+                sort(this, opts.columns[columnHeader], currentDirections[columnHeader]);
             });
 
     };
