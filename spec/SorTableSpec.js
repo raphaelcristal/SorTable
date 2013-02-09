@@ -215,8 +215,12 @@ describe('SorTable', function() {
                 $table = $(table);
                 $table.sorTable({
                     columns: {
-                        ColumnCustom: function() {
-                            console.log("CUSTOM");
+                        ColumnCustom: function(a, b) {
+                            var regExA = /(\d+)/g;
+                            var regExB = /(\d+)/g;
+                            var valA = parseFloat(regExA.exec(a)[0]);
+                            var valB = parseFloat(regExB.exec(b)[0]);
+                            return valA - valB;
                         }
                     }
                 });
@@ -229,18 +233,18 @@ describe('SorTable', function() {
                 var bodyCells = $table.find('tbody>tr>td');
                 expect($(bodyCells[3]).text()).toEqual("5 %");
                 expect($(bodyCells[7]).text()).toEqual("50 %");
-                expect($(bodyCells[11]).text()).toEqual("75 %");
+                expect($(bodyCells[11]).text()).toEqual("70 %");
 
             });
 
             it('should sort a custom column descending on second click',function() {
 
-                $table.find('thead>tr>th:contains("ColumnCuston")').trigger('click');
+                $table.find('thead>tr>th:contains("ColumnCustom")').trigger('click');
                 $table.find('thead>tr>th:contains("ColumnCustom")').trigger('click');
                 var bodyCells = $table.find('tbody>tr>td');
                 expect($(bodyCells[11]).text()).toEqual("5 %");
                 expect($(bodyCells[7]).text()).toEqual("50 %");
-                expect($(bodyCells[3]).text()).toEqual("75 %");
+                expect($(bodyCells[3]).text()).toEqual("70 %");
 
             });
 
