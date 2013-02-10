@@ -101,6 +101,9 @@
             init.apply(this, [opts]);
         } else {
             var column = this.find('thead>tr>th:contains("' + method + '")');
+            if(column.length === 0){
+                throw new Error('No column with name ' + method);
+            }
             sort(column, type, direction);
         }
 

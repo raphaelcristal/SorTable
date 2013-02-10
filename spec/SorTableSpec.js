@@ -257,6 +257,18 @@ describe('SorTable', function() {
 
         var $table;
 
+        describe('errors', function() {
+
+            it('should throw an error if column cannot be found', function() {
+
+                $table = $(table);
+                expect(function() {
+                    $table.sorTable('FooBar', 'ascending', 'String');
+                }).toThrow('No column with name FooBar');
+
+            });
+        });
+
         describe('number columns', function() {
 
             beforeEach(function() {
@@ -401,11 +413,6 @@ describe('SorTable', function() {
             });
 
         });
-
-
-
-
-
 
     });
 
