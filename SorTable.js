@@ -1,5 +1,5 @@
 (function($) {
-
+    'use strict';
 
     var sortAsNumber = function(a, b) {
 
@@ -93,14 +93,15 @@
 
     };
 
-    $.fn.sorTable = function(method, column, direction) {
+    $.fn.sorTable = function(method, direction, type) {
 
         //initialization
-        if(column === undefined && direction === undefined){
+        if(direction === undefined && type === undefined){
             var opts = $.extend({}, $.fn.sorTable.defaults, method);
             init.apply(this, [opts]);
-        } else if(method === 'sort'){
-            sort(column, direction);
+        } else {
+            var column = this.find('thead>tr>th:contains("' + method + '")');
+            sort(column, type, direction);
         }
 
     };

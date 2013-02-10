@@ -86,9 +86,10 @@ describe('SorTable', function() {
 
     describe('onclick', function() {
 
+        var $table;
+
         describe('number column', function() {
 
-            var $table;
             beforeEach(function() {
 
                 $table = $(table);
@@ -249,6 +250,162 @@ describe('SorTable', function() {
             });
 
         });
+
+    });
+
+    describe('sort', function() {
+
+        var $table;
+
+        describe('number columns', function() {
+
+            beforeEach(function() {
+
+                $table = $(table);
+
+            });
+
+            it('should sort a number column ascending', function() {
+
+                $table.sorTable('ColumnNumber', 'ascending', 'Number');
+                var bodyCells = $table.find('tbody>tr>td');
+                expect($(bodyCells[0]).text()).toEqual("-123123");
+                expect($(bodyCells[4]).text()).toEqual("5.3434");
+                expect($(bodyCells[8]).text()).toEqual("12");
+
+            });
+
+            it('should sort a number column ascending', function() {
+
+                $table.sorTable('ColumnNumber', 'descending', 'Number');
+                var bodyCells = $table.find('tbody>tr>td');
+                expect($(bodyCells[8]).text()).toEqual("-123123");
+                expect($(bodyCells[4]).text()).toEqual("5.3434");
+                expect($(bodyCells[0]).text()).toEqual("12");
+
+            });
+
+        });
+
+        describe('string column', function() {
+
+            beforeEach(function() {
+
+                $table = $(table);
+
+            });
+
+            it('should sort a string column ascending', function() {
+
+                $table.sorTable('ColumnString', 'ascending', 'String');
+                var bodyCells = $table.find('tbody>tr>td');
+                expect($(bodyCells[1]).text()).toEqual("OIU");
+                expect($(bodyCells[5]).text()).toEqual("abc");
+                expect($(bodyCells[9]).text()).toEqual("qq");
+
+            });
+
+            it('should sort a string column descending',function() {
+
+                $table.sorTable('ColumnString', 'descending', 'String');
+                var bodyCells = $table.find('tbody>tr>td');
+                expect($(bodyCells[9]).text()).toEqual("OIU");
+                expect($(bodyCells[5]).text()).toEqual("abc");
+                expect($(bodyCells[1]).text()).toEqual("qq");
+
+            });
+
+        });
+
+        describe('date column', function() {
+
+            beforeEach(function() {
+
+                $table = $(table);
+
+            });
+
+            it('should sort a date column ascending', function() {
+
+                $table.sorTable('ColumnDate', 'ascending', 'Date');
+                var bodyCells = $table.find('tbody>tr>td');
+                expect($(bodyCells[2]).text()).toEqual("05 10 2010");
+                expect($(bodyCells[6]).text()).toEqual("2 Jan 2013");
+                expect($(bodyCells[10]).text()).toEqual("05-12-2013");
+
+            });
+
+            it('should sort a date column descending',function() {
+
+                $table.sorTable('ColumnDate', 'descending', 'Date');
+                var bodyCells = $table.find('tbody>tr>td');
+                expect($(bodyCells[10]).text()).toEqual("05 10 2010");
+                expect($(bodyCells[6]).text()).toEqual("2 Jan 2013");
+                expect($(bodyCells[2]).text()).toEqual("05-12-2013");
+
+            });
+
+
+        });
+
+        describe('custom column', function() {
+
+            beforeEach(function() {
+
+                $table = $(table);
+                $table.sorTable({
+                    columns: {
+                        ColumnCustom: function(a, b) {
+                            var regExA = /(\d+)/g;
+                            var regExB = /(\d+)/g;
+                            var valA = parseFloat(regExA.exec(a)[0]);
+                            var valB = parseFloat(regExB.exec(b)[0]);
+                            return valA - valB;
+                        }
+                    }
+                });
+
+            });
+
+            it('should sort a custom column ascending', function() {
+
+                $table.sorTable('ColumnCustom', 'ascending', function(a, b) {
+                    var regExA = /(\d+)/g;
+                    var regExB = /(\d+)/g;
+                    var valA = parseFloat(regExA.exec(a)[0]);
+                    var valB = parseFloat(regExB.exec(b)[0]);
+                    return valA - valB;
+                });
+
+                var bodyCells = $table.find('tbody>tr>td');
+                expect($(bodyCells[3]).text()).toEqual("5 %");
+                expect($(bodyCells[7]).text()).toEqual("50 %");
+                expect($(bodyCells[11]).text()).toEqual("70 %");
+
+            });
+
+            it('should sort a custom column descending',function() {
+
+                $table.sorTable('ColumnCustom', 'descending', function(a, b) {
+                    var regExA = /(\d+)/g;
+                    var regExB = /(\d+)/g;
+                    var valA = parseFloat(regExA.exec(a)[0]);
+                    var valB = parseFloat(regExB.exec(b)[0]);
+                    return valA - valB;
+                });
+                var bodyCells = $table.find('tbody>tr>td');
+                expect($(bodyCells[11]).text()).toEqual("5 %");
+                expect($(bodyCells[7]).text()).toEqual("50 %");
+                expect($(bodyCells[3]).text()).toEqual("70 %");
+
+            });
+
+        });
+
+
+
+
+
 
     });
 
