@@ -6,7 +6,7 @@ SorTable is a JQuery Plugin for sorting standard html tables. It is very minimal
 Example table:
 
 ```html
-<table id="#my-table">
+<table id="my-table">
     <thead>
         <tr>
             <th>ColumnNumber</th>
