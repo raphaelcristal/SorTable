@@ -3,6 +3,9 @@ SorTable
 
 SorTable is a JQuery Plugin for sorting standard html tables. It is very minimal by choice and avoids features like automatically detecting the type of data. It only works for tables with a thead and tbody.
 
+Demo:
+Check out a simple demo <a href="http://codepen.io/anon/pen/levgb">here</a>
+
 Example table:
 
 ```html
