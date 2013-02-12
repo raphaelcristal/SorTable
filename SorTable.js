@@ -56,11 +56,14 @@
             });
         }
 
+        //preserve event listeners which were bound to table cells
+        var sortedRows = tableRows.clone(true);
         tableRows.remove();
         if(direction === 'descending') {
-            tableRows = tableRows.toArray().reverse();
+            sortedRows = tableRows.toArray().reverse();
         }
-        tBody.append(tableRows);
+        tBody.append(sortedRows);
+
 
     };
 
