@@ -42,7 +42,7 @@ $('#my-table').sorTable({
 });
 ```
 
-Now you can sort the table by clicking the columns header. By default SorTable changes the cursor property to pointer, so it's obvious to the user that this column is sortable. You can change that behaviour by setting the css property on init oder change the default value at $.fn.sorTable.defaults.css .
+Now you can sort the table by clicking the columns header. By default SorTable changes the cursor property to pointer, so it's obvious to the user that this column is sortable. You can change that behaviour by setting the css property on init or change the default value at $.fn.sorTable.defaults.css .
 
 ```javascript
 $('#my-table').sorTable({
